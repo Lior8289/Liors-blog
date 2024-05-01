@@ -2,6 +2,10 @@ import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 
+export const test = (req, res) => {
+  res.json({ message: "API is working!" });
+};
+
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
   if (
@@ -16,7 +20,7 @@ export const signup = async (req, res, next) => {
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
-
+  console.log(hashedPassword);
   const newUser = new User({
     username,
     email,
