@@ -7,9 +7,11 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
+  const [submitted, setSubmitted] = useState(false); // Track form submission
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading, error: errorMessage } = useSelector((state) => state.user);
@@ -20,6 +22,7 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitted(true); // Set submitted to true when form is submitted
     if (!formData.email || !formData.password) {
       return dispatch(signInFailure("Please fill out all fields."));
     }
@@ -94,6 +97,7 @@ export default function SignIn() {
                 "Sign In"
               )}
             </Button>
+            <OAuth />
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Don't have an account?</span>
@@ -101,7 +105,7 @@ export default function SignIn() {
               Sign up
             </Link>
           </div>
-          {errorMessage && (
+          {submitted && errorMessage && (
             <Alert className="mt-5" color="failure">
               {errorMessage}
             </Alert>
