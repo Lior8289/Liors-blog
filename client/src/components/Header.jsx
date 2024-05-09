@@ -79,7 +79,7 @@ function Header() {
               </span>
             </Dropdown.Header>
             <Link to={"/dashboard?tab=profile"}>
-              <DropdownItem>profile</DropdownItem>
+              <DropdownItem className="">Dashboard</DropdownItem>
             </Link>
             <Dropdown.Divider />
             <DropdownItem onClick={handleSignout}>Sign Out</DropdownItem>
