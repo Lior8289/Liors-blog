@@ -12,8 +12,7 @@ export const create = async (req, res, next) => {
     .split(" ")
     .join("-")
     .toLowerCase()
-    .replace(/[^a-zA-Z0-9-]/g, "-");
-
+    .replace(/[^a-zA-Z0-9-]/g, "");
   const newPost = new Post({
     ...req.body,
     slug,
@@ -39,8 +38,8 @@ export const getposts = async (req, res, next) => {
       ...(req.query.postId && { _id: req.query.postId }),
       ...(req.query.searchTerm && {
         $or: [
-          { title: { $rgex: req.query.searchTerm, $options: "i" } },
-          { content: { $rgex: req.query.searchTerm, $options: "i" } },
+          { title: { $regex: req.query.searchTerm, $options: "i" } },
+          { content: { $regex: req.query.searchTerm, $options: "i" } },
         ],
       }),
     })
@@ -49,7 +48,9 @@ export const getposts = async (req, res, next) => {
       .limit(limit);
 
     const totalPosts = await Post.countDocuments();
+
     const now = new Date();
+
     const oneMonthAgo = new Date(
       now.getFullYear(),
       now.getMonth() - 1,
@@ -82,4 +83,25 @@ export const deletepost = async (req, res, next) => {
   }
 };
 
-export default create;
+export const updatepost = async (req, res, next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, "You are not allowed to update this post"));
+  }
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(
+      req.params.postId,
+      {
+        $set: {
+          title: req.body.title,
+          content: req.body.content,
+          category: req.body.category,
+          image: req.body.image,
+        },
+      },
+      { new: true }
+    );
+    res.status(200).json(updatedPost);
+  } catch (error) {
+    next(error);
+  }
+};
