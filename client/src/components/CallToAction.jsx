@@ -9,7 +9,7 @@ export default function CallToAction() {
         <img src="https://mverse.co.il/wp-content/uploads/2023/11/0f00390b-bf87-47e7-b103-3cb1842905e8.jpg" />
       </div>
       <div className="flex-1 justify-center flex flex-col">
-        <h2 className="text-2xl ">עם ישראל חי יחד ננצח</h2>
+        <h2 className="text-2xl text-white">עם ישראל חי יחד ננצח</h2>
 
         <Button
           gradientMonochrome="failure"
