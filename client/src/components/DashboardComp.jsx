@@ -201,7 +201,7 @@ export default function DashboardComp() {
                       />
                     </Table.Cell>
                     <Table.Cell className="w-96">{post.title}</Table.Cell>
-                    <Table.Cell className="w-5">{post.category}</Table.Cell>
+                    <Table.Cell className="w-5  ">{post.category}</Table.Cell>
                   </Table.Row>
                 </Table.Body>
               ))}
