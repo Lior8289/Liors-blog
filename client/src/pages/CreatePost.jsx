@@ -73,7 +73,7 @@ export default function CreatePost() {
       }
       if (res.ok) {
         setPublishError(null);
-        navigate(`post/${data.slug}`);
+        navigate(`/post/${data.slug}`);
       }
     } catch (error) {
       setPublishError("Something went wrong");
@@ -103,6 +103,7 @@ export default function CreatePost() {
             <option value="sport">Sport</option>
             <option value="music">Music</option>
             <option value="food">Food</option>
+            <option value="general">General</option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">

@@ -20,12 +20,22 @@ body {
   font-weight: 600;
   font-family: sans-serif;
   margin: 1.5rem 0;
+  text-align: center;
 }
 
 .post-content h2 {
   font-size: 1.4rem;
   font-family: sans-serif;
   margin: 1.5rem 0;
+  text-align: center;
+}
+
+.post-content strong {
+  font-size: 1.4rem;
+  font-family: sans-serif;
+  margin: 1.5rem auto; /* Change margin to auto */
+  display: block; /* Make it a block-level element */
+  text-align: center; /* Center the text within its container */
 }
 
 .post-content a {
@@ -42,6 +52,17 @@ body {
 }
 
 .dark .post-content p {
+  color: white;
+  background: rgb(16, 23, 42);
+}
+
+.dark .post-content h2 {
+  color: white;
+  background: rgb(16, 23, 42);
+  text-align: center;
+}
+
+.dark .post-content h1 {
   color: white;
   background: rgb(16, 23, 42);
 }
