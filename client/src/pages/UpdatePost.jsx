@@ -134,10 +134,10 @@ export default function UpdatePost() {
             value={formData.category}
           >
             <option value="uncategorized">Select a category</option>
-            <option value="sport">Sport</option>
-            <option value="music">Music</option>
-            <option value="food">Food</option>
-            <option value="general">General</option>
+            <option value="Sport">Sport</option>
+            <option value="Music">Music</option>
+            <option value="Food">Food</option>
+            <option value="General">General</option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">

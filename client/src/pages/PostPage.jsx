@@ -97,7 +97,7 @@ export default function PostPage() {
           <div className="flex flex-wrap gap-5 mt-5 justify-center">
             {recetPosts &&
               recetPosts
-                .filter((recentPost) => recentPost.slug !== postSlug)
+                /*.filter((recentPost) => recentPost.slug !== postSlug)*/
                 .map((post) => <PostCard key={post._id} post={post} />)}
           </div>
         </div>
