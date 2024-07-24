@@ -10,8 +10,8 @@ export default function PostPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
-  const [recetPosts, setRecentPosts] = useState(null);
-  console.log(recetPosts);
+  const [recentPosts, setRecentPosts] = useState(null);
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -23,11 +23,9 @@ export default function PostPage() {
           setLoading(false);
           return;
         }
-        if (res.ok) {
-          setPost(data.posts[0]);
-          setLoading(false);
-          setError(false);
-        }
+        setPost(data.posts[0]);
+        setLoading(false);
+        setError(false);
       } catch (error) {
         setError(true);
         setLoading(false);
@@ -37,19 +35,23 @@ export default function PostPage() {
   }, [postSlug]);
 
   useEffect(() => {
-    try {
-      const fetchRecentPosts = async () => {
-        const res = await fetch(`/api/post/getposts?limit=3`);
+    const fetchRecentPosts = async () => {
+      try {
+        const res = await fetch(`/api/post/getposts?limit=4`);
         const data = await res.json();
         if (res.ok) {
-          setRecentPosts(data.posts);
+          // Filter out the current post and then take only the first 3 posts
+          const filteredPosts = data.posts
+            .filter((recentPost) => recentPost.slug !== postSlug)
+            .slice(0, 3);
+          setRecentPosts(filteredPosts);
         }
-      };
-      fetchRecentPosts();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchRecentPosts();
+  }, [postSlug]);
 
   if (loading) {
     return (
@@ -65,7 +67,7 @@ export default function PostPage() {
         </h1>
         <Link
           to={`/search?category=${post && post.category}`}
-          className=" self-center mt-5"
+          className="self-center mt-5"
         >
           <Button color="gray" pill>
             {post && post.category}
@@ -74,9 +76,9 @@ export default function PostPage() {
         <img
           src={post && post.image}
           alt={post && post.title}
-          className="mt-10 p-3 max-h-[600px] w-full object-contain "
+          className="mt-10 p-3 max-h-[600px] w-full object-contain"
         />
-        <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs ">
+        <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
           <span>
             {post && new Date(post.createdAt).toLocaleDateString("en-GB")}
           </span>
@@ -95,10 +97,10 @@ export default function PostPage() {
         <div className="flex flex-col justify-center items-center mb-5">
           <h1 className="text-xl mt-5">Recent Articles</h1>
           <div className="flex flex-wrap gap-5 mt-5 justify-center">
-            {recetPosts &&
-              recetPosts
-                /*.filter((recentPost) => recentPost.slug !== postSlug)*/
-                .map((post) => <PostCard key={post._id} post={post} />)}
+            {recentPosts &&
+              recentPosts.map((recentPost) => (
+                <PostCard key={recentPost._id} post={recentPost} />
+              ))}
           </div>
         </div>
       </main>
