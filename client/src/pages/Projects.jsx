@@ -6,7 +6,7 @@ export default function Projects() {
     <div>
       {" "}
       <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
-        Currenntly working on more projects
+        Currenntly working on more projects... Keep watching for updates
       </h1>
       <img
         className="mt-10 p-3 max-h-[600px] w-full object-contain "
