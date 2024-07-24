@@ -1,6 +1,12 @@
 import { Footer } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { BsFacebook, BsInstagram, BsTwitter, BsGithub } from "react-icons/bs";
+import {
+  BsFacebook,
+  BsInstagram,
+  BsTwitter,
+  BsGithub,
+  BsLinkedin,
+} from "react-icons/bs";
 export default function FooterCom() {
   return (
     <Footer container className="border border-t-8 border-teal-500">
@@ -41,11 +47,11 @@ export default function FooterCom() {
                   Github
                 </Footer.Link>
                 <Footer.Link
-                  href="https://www.discord.com/Lior_morali/"
+                  href="https://www.linkedin.com/in/lior-morali-a1a162256/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Discord
+                  Linkedin
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>
@@ -73,8 +79,8 @@ export default function FooterCom() {
               rel="noopener noreferrer"
             />
             <Footer.Icon
-              href="https://www.instagram.com/lior_morali/"
-              icon={BsInstagram}
+              href="https://www.linkedin.com/in/lior-morali-a1a162256/"
+              icon={BsLinkedin}
               target="_blank"
               rel="noopener noreferrer"
             />
