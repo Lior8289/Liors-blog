@@ -19,14 +19,16 @@ export default function Home() {
   return (
     <div className="">
       <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto">
-        <h1 className="text-3xl fond-bold lg:text-6xl">Welcome to my Blog</h1>
-        <p className="text-gray-500 text-xs sm:text-sm dark:text-gray-300">
+        <h1 className="text-3xl fond-bold lg:text-6xl text-center">
+          Welcome to my Blog
+        </h1>
+        <p className="text-gray-500 text-xs sm:text-sm dark:text-gray-300 text-center">
           Here you'll find a veraity of articles and news on topics such as
           Food, Music, Sports and lot more.
         </p>
         <Link
           to="/search"
-          className="text-xs sm:text-sm text-teal-500 font-bold hover:underline"
+          className=" text-center text-xs sm:text-sm text-teal-500 font-bold hover:underline"
         >
           View all posts
         </Link>
