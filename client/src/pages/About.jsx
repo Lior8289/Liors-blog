@@ -10,7 +10,7 @@ export default function About() {
         alt="Lior Morali"
       />
       <h1 className="mt-4 text-xl font-semibold">Lior Morali</h1>
-      <p className="mt-2 text-center max-w-md mb-10">
+      <p className="mt-2 text-center max-w-md px-4 mb-10">
         {/* Add your descriptive text here */}
         I'm a second-year Computer Science student with a passion for web
         development and full-stack technologies. I enjoy creating responsive and
