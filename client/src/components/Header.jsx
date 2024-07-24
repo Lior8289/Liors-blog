@@ -23,7 +23,7 @@ function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
   const [searchTerm, setSearchTerm] = useState("");
-  const [showLogoutModal, setShowLogoutModal] = useState(false); // State for logout confirmation modal
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const handleSignout = async () => {
     try {
@@ -75,7 +75,7 @@ function Header() {
           className="w-12 h-10 lg:hidden"
           color="gray"
           pill
-          onClick={() => setShowLogoutModal(true)} // Show logout modal on click
+          onClick={() => navigate("/search")}
         >
           <AiOutlineSearch />
         </FlowbiteButton>
@@ -103,12 +103,10 @@ function Header() {
                 </span>
               </Dropdown.Header>
               <Link to={"/dashboard?tab=profile"}>
-                <DropdownItem className="">Dashboard</DropdownItem>
+                <DropdownItem>Dashboard</DropdownItem>
               </Link>
               <Dropdown.Divider />
               <DropdownItem onClick={() => setShowLogoutModal(true)}>
-                {" "}
-                {/* Show logout modal on click */}
                 Sign Out
               </DropdownItem>
             </Dropdown>
@@ -131,18 +129,24 @@ function Header() {
           <Navbar.Link active={path === "/projects"} as={"div"}>
             <Link to="/projects">Projects</Link>
           </Navbar.Link>
+          <Navbar.Link
+            as={"div"}
+            className="sm:hidden"
+            onClick={() => dispatch(toggleTheme())}
+          >
+            {theme === "light" ? "Dark Mode" : "Light Mode"}
+          </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
-      {/* Logout Confirmation Modal */}
       <Modal
         show={showLogoutModal}
         onClose={() => setShowLogoutModal(false)}
         popup
         size="md"
       >
-        <Modal.Body>
+        <Modal.Body className="dark:bg-slate-700">
           <div className="text-center">
-            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400 mt-5">
               Are you sure you want to sign out?
             </h3>
             <div className="flex justify-center gap-4">
