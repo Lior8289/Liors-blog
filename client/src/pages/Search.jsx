@@ -97,7 +97,7 @@ export default function Search() {
             <label className="font-semibold">Sort:</label>
             <Select onChange={handleChange} value={sideBarData.sort} id="sort">
               <option value="desc">Latest</option>
-              <option value="acs">Oldest</option>
+              <option value="asc">Oldest</option>
             </Select>
           </div>
           <div className="flex items-center gap-2">
