@@ -81,7 +81,7 @@ function Header() {
         </FlowbiteButton>
         <div className="flex gap-2 md:order-2">
           <FlowbiteButton
-            className="w-12 h-10 hidden sm:inline"
+            className="w-12 h-10  sm:inline"
             color="gray"
             pill
             onClick={() => dispatch(toggleTheme())}
@@ -120,21 +120,32 @@ function Header() {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link active={path === "/"} as={"div"}>
-            <Link to="/">Home</Link>
-          </Navbar.Link>
-          <Navbar.Link active={path === "/about"} as={"div"}>
-            <Link to="/about">About</Link>
-          </Navbar.Link>
-          <Navbar.Link active={path === "/projects"} as={"div"}>
-            <Link to="/projects">Projects</Link>
+          <Navbar.Link
+            active={path === "/"}
+            as={"div"}
+            className="w-full flex items-center justify-center py-2 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <Link to="/" className="w-full h-full block text-center">
+              Home
+            </Link>
           </Navbar.Link>
           <Navbar.Link
+            active={path === "/about"}
             as={"div"}
-            className="sm:hidden"
-            onClick={() => dispatch(toggleTheme())}
+            className="w-full flex items-center justify-center py-2 hover:bg-gray-200 dark:hover:bg-gray-800"
           >
-            {theme === "light" ? "Dark Mode" : "Light Mode"}
+            <Link to="/about" className="w-full h-full block text-center">
+              About
+            </Link>
+          </Navbar.Link>
+          <Navbar.Link
+            active={path === "/projects"}
+            as={"div"}
+            className="w-full flex items-center justify-center py-2 hover:bg-gray-200 dark:hover:bg-gray-800"
+          >
+            <Link to="/projects" className="w-full h-full block text-center">
+              Projects
+            </Link>
           </Navbar.Link>
         </Navbar.Collapse>
       </Navbar>
