@@ -1,13 +1,13 @@
-import { Button, Select, Sidebar, TextInput } from "flowbite-react";
+import { Button, Select, TextInput } from "flowbite-react";
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PostCard from "../components/PostCard";
 
 export default function Search() {
   const [sideBarData, setSideBarData] = useState({
     searchTerm: "",
     sort: "desc",
-    category: "all", // Changed default category to "all"
+    category: "all", // Default category set to "all"
   });
 
   const [posts, setPosts] = useState([]);
@@ -21,12 +21,13 @@ export default function Search() {
     const searchTermFromUrl = urlParams.get("searchTerm");
     const sortFromUrl = urlParams.get("sort");
     const categoryFromUrl = urlParams.get("category");
+
     if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
       setSideBarData({
         ...sideBarData,
-        searchTerm: searchTermFromUrl,
-        sort: sortFromUrl,
-        category: categoryFromUrl || "all", // Set category to "all" if categoryFromUrl is null
+        searchTerm: searchTermFromUrl || "",
+        sort: sortFromUrl || "desc",
+        category: categoryFromUrl || "all",
       });
     }
     fetchPosts();
@@ -37,14 +38,16 @@ export default function Search() {
     const urlParams = new URLSearchParams(location.search);
     const searchQuery = urlParams.toString();
     const res = await fetch(`/api/post/getposts?${searchQuery}`);
+
     if (!res.ok) {
       setLoading(false);
       return;
     }
+
     const data = await res.json();
     setPosts(data.posts);
     setLoading(false);
-    setShowMore(data.posts.length === 9);
+    setShowMore(data.posts.length === 10);
   };
 
   const handleChange = (e) => {
@@ -55,9 +58,11 @@ export default function Search() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams();
+
     if (sideBarData.category !== "all") {
       urlParams.set("category", sideBarData.category);
     }
+
     urlParams.set("searchTerm", sideBarData.searchTerm);
     urlParams.set("sort", sideBarData.sort);
     navigate(`/search?${urlParams.toString()}`);
@@ -69,9 +74,11 @@ export default function Search() {
     urlParams.set("startIndex", startIndex);
     const searchQuery = urlParams.toString();
     const res = await fetch(`/api/post/getposts?${searchQuery}`);
+
     if (!res.ok) {
       return;
     }
+
     const data = await res.json();
     setPosts([...posts, ...data.posts]);
     setShowMore(data.posts.length === 9);
@@ -80,9 +87,10 @@ export default function Search() {
   return (
     <div className="flex flex-col md:flex-row">
       <div className="p-7 border-b md:border-r md:min-h-screen border-gray-500">
-        <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
-          <div className="flex items-center gap-2 ">
-            <label className="whitespace-nowrap font-semibold">
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          {/* Search Term */}
+          <div className="grid grid-cols-3 gap-4 items-center">
+            <label htmlFor="searchTerm" className="font-semibold">
               Search Term
             </label>
             <TextInput
@@ -91,21 +99,36 @@ export default function Search() {
               type="text"
               value={sideBarData.searchTerm}
               onChange={handleChange}
+              className="col-span-2 w-full"
             />
           </div>
-          <div className="flex items-center gap-2">
-            <label className="font-semibold">Sort:</label>
-            <Select onChange={handleChange} value={sideBarData.sort} id="sort">
+
+          {/* Sort */}
+          <div className="grid grid-cols-3 gap-4 items-center">
+            <label htmlFor="sort" className="font-semibold">
+              Sort
+            </label>
+            <Select
+              id="sort"
+              value={sideBarData.sort}
+              onChange={handleChange}
+              className="col-span-2 w-full"
+            >
               <option value="desc">Latest</option>
               <option value="asc">Oldest</option>
             </Select>
           </div>
-          <div className="flex items-center gap-2">
-            <label className="font-semibold">Category:</label>
+
+          {/* Category */}
+          <div className="grid grid-cols-3 gap-4 items-center">
+            <label htmlFor="category" className="font-semibold">
+              Category
+            </label>
             <Select
-              onChange={handleChange}
-              value={sideBarData.category}
               id="category"
+              value={sideBarData.category}
+              onChange={handleChange}
+              className="col-span-2 w-full"
             >
               <option value="all">All</option>
               <option value="Sport">Sport</option>
@@ -114,11 +137,22 @@ export default function Search() {
               <option value="General">General</option>
             </Select>
           </div>
-          <Button type="submit" outline gradientDuoTone="purpleToPink">
-            Apply filters
-          </Button>
+
+          {/* Apply Filters Button */}
+          <div className="grid grid-cols-3 gap-4 items-center">
+            <span></span>
+            <Button
+              type="submit"
+              outline
+              gradientDuoTone="purpleToPink"
+              className="col-span-2"
+            >
+              Apply filters
+            </Button>
+          </div>
         </form>
       </div>
+
       <div className="w-full">
         <h1 className="text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5">
           Posts results:
